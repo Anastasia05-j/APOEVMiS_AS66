@@ -1,4 +1,5 @@
 ﻿#include "iostream"
+#include "cstring"
 #include "windows.h"
 
 using namespace std;
@@ -30,6 +31,7 @@ void testAllBranches() {
     cout << "Ожидается: 3*4 - 2*4 + 1 = 5" << endl;
     cout << "Целые (FPU): " << res_i << " | Вещественные (FPU): " << res_f << endl;
 }
+extern "C" void reverseWordsWrapper(char* str, char* buffer);
 
 int main() {
     SetConsoleCP(1251);
@@ -63,6 +65,16 @@ int main() {
             testAllBranches();
         }
     } while (choice != 0);
+
+    char myStr[200] = { 0 };
+    char tempBuffer[200] = { 0 };
+
+    cout << "Введите строку (слова, разделенные пробелами):\n> ";
+    cin.getline(myStr, 200);
+
+    reverseWordsWrapper(myStr, tempBuffer);
+
+    cout << "\nРезультат\n> " << myStr << "\n";
 
     return 0;
 }

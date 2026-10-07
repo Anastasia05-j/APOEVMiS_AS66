@@ -2,7 +2,7 @@
 .model flat, c
 
 .data
-; Константы для Раздела 1 (Целочисленные)
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 c_1    dd 1
 c_2    dd 2
 c_3    dd 3
@@ -11,7 +11,7 @@ c_5    dd 5
 c_9    dd 9
 c_m5   dd -5
 
-; Константы для Раздела 2 (Вещественные/Real)
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2 (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/Real)
 c_1_r  dd 1.0
 c_2_r  dd 2.0
 c_3_r  dd 3.0
@@ -20,8 +20,8 @@ c_5_r  dd 5.0
 c_9_r  dd 9.0
 c_m5_r dd -5.0
 
-; Глобальные переменные для удобного доступа из внутренних процедур
-; (Команды FPU требуют загрузки данных именно из памяти)
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+; (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ FPU пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
 global_x   dd 0
 global_y   dd 0
 global_ptr dd 0
@@ -32,9 +32,9 @@ global_y_r dd 0.0
 .code
 
 
-; Ветка 1: 5x + 2xy + 1
+; пїЅпїЅпїЅпїЅпїЅ 1: 5x + 2xy + 1
 branch1_int PROC
-    fild dword ptr [global_x]  ; загружаем целое x
+    fild dword ptr [global_x]  ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ x
     fimul dword ptr [c_5]      ; st(0) = 5x
 
     fild dword ptr [global_x]  
@@ -45,29 +45,29 @@ branch1_int PROC
     fiadd dword ptr [c_1]      ; st(0) = 5x + 2xy + 1
     
     mov eax, [global_ptr]
-    fistp dword ptr [eax]      ; выгружаем как целое с округлением
+    fistp dword ptr [eax]      ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     ret
 branch1_int ENDP
 
-; Ветка 2: (2xy + 3) / (y^2 + 4)
+; пїЅпїЅпїЅпїЅпїЅ 2: (2xy + 3) / (y^2 + 4)
 branch2_int PROC
     fild dword ptr [global_x]
     fimul dword ptr [global_y]
     fimul dword ptr [c_2]
-    fiadd dword ptr [c_3]      ; st(0) = числитель (2xy + 3)
+    fiadd dword ptr [c_3]      ; st(0) = пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (2xy + 3)
 
     fild dword ptr [global_y]
     fimul dword ptr [global_y]
-    fiadd dword ptr [c_4]      ; st(0) = знаменатель (y^2 + 4), st(1) = числитель
+    fiadd dword ptr [c_4]      ; st(0) = пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (y^2 + 4), st(1) = пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    fdivp st(1), st(0)         ; st(0) = числитель / знаменатель
+    fdivp st(1), st(0)         ; st(0) = пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     mov eax, [global_ptr]
     fistp dword ptr [eax]
     ret
 branch2_int ENDP
 
-; Ветка 3: 3x^2 - 2y^2 + 1
+; пїЅпїЅпїЅпїЅпїЅ 3: 3x^2 - 2y^2 + 1
 branch3_int PROC
     fild dword ptr [global_x]
     fimul dword ptr [global_x]
@@ -85,9 +85,9 @@ branch3_int PROC
     ret
 branch3_int ENDP
 
-; Главная функция Раздела 1
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 1
 calculate_int PROC x:DWORD, y:DWORD, res_ptr:DWORD
-    ; Копируем параметры в глобальную память для внутренних процедур FPU
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ FPU
     mov eax, x
     mov [global_x], eax
     mov eax, y
@@ -95,15 +95,15 @@ calculate_int PROC x:DWORD, y:DWORD, res_ptr:DWORD
     mov eax, res_ptr
     mov [global_ptr], eax
 
-    ; Проверка условия x + y > 9
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ x + y > 9
     fild dword ptr [global_x]
     fiadd dword ptr [global_y] 
-    ficomp dword ptr [c_9]     ; сравниваем st(0) с 9 и выталкиваем
-    fnstsw ax                  ; копируем флаги FPU в регистр AX
-    sahf                       ; переносим в стандартные флаги процессора
+    ficomp dword ptr [c_9]     ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ st(0) пїЅ 9 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    fnstsw ax                  ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ FPU пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ AX
+    sahf                       ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     ja do_b1_int
 
-    ; Проверка условия x + y < -5
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ x + y < -5
     fild dword ptr [global_x]
     fiadd dword ptr [global_y]
     ficomp dword ptr [c_m5]
@@ -111,7 +111,7 @@ calculate_int PROC x:DWORD, y:DWORD, res_ptr:DWORD
     sahf
     jb do_b2_int
 
-    ; Иначе (от -5 до 9) ветка 3
+    ; пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ -5 пїЅпїЅ 9) пїЅпїЅпїЅпїЅпїЅ 3
     call branch3_int
     jmp end_int
 
@@ -127,9 +127,9 @@ end_int:
 calculate_int ENDP
 
 
-; Ветка 1: 5x + 2xy + 1
+; пїЅпїЅпїЅпїЅпїЅ 1: 5x + 2xy + 1
 branch1_real PROC
-    fld dword ptr [global_x_r] ; загружаем float x
+    fld dword ptr [global_x_r] ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ float x
     fmul dword ptr [c_5_r]      
 
     fld dword ptr [global_x_r]
@@ -140,11 +140,11 @@ branch1_real PROC
     fadd dword ptr [c_1_r]      
     
     mov eax, [global_ptr]
-    fstp dword ptr [eax]       ; выгружаем как float
+    fstp dword ptr [eax]       ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ float
     ret
 branch1_real ENDP
 
-; Ветка 2: (2xy + 3) / (y^2 + 4)
+; пїЅпїЅпїЅпїЅпїЅ 2: (2xy + 3) / (y^2 + 4)
 branch2_real PROC
     fld dword ptr [global_x_r]
     fmul dword ptr [global_y_r]
@@ -162,7 +162,7 @@ branch2_real PROC
     ret
 branch2_real ENDP
 
-; Ветка 3: 3x^2 - 2y^2 + 1
+; пїЅпїЅпїЅпїЅпїЅ 3: 3x^2 - 2y^2 + 1
 branch3_real PROC
     fld dword ptr [global_x_r]
     fmul dword ptr [global_x_r]
@@ -180,9 +180,9 @@ branch3_real PROC
     ret
 branch3_real ENDP
 
-; Главная функция Раздела 2
+; пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2
 calculate_real PROC x:DWORD, y:DWORD, res_ptr:DWORD
-    ; Копируем
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     mov eax, x
     mov [global_x_r], eax
     mov eax, y
@@ -190,7 +190,7 @@ calculate_real PROC x:DWORD, y:DWORD, res_ptr:DWORD
     mov eax, res_ptr
     mov [global_ptr], eax
 
-    ; Проверка условия x + y > 9
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ x + y > 9
     fld dword ptr [global_x_r]
     fadd dword ptr [global_y_r]
     fcomp dword ptr [c_9_r]
@@ -198,7 +198,7 @@ calculate_real PROC x:DWORD, y:DWORD, res_ptr:DWORD
     sahf
     ja do_b1_real
 
-    ; Проверка условия x + y < -5
+    ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ x + y < -5
     fld dword ptr [global_x_r]
     fadd dword ptr [global_y_r]
     fcomp dword ptr [c_m5_r]
@@ -206,7 +206,7 @@ calculate_real PROC x:DWORD, y:DWORD, res_ptr:DWORD
     sahf
     jb do_b2_real
 
-    ; Иначе (от -5 до 9) ветка 3
+    ; пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ -5 пїЅпїЅ 9) пїЅпїЅпїЅпїЅпїЅ 3
     call branch3_real
     jmp end_real
 
@@ -220,5 +220,91 @@ do_b2_real:
 end_real:
     ret
 calculate_real ENDP
+REVERSE_WORDS_MACRO MACRO src, buffer
+
+    LOCAL find_end, start_scan, scan_words, find_start, start_found
+    LOCAL copy_loop, skip_space, done, empty_str, copy_back_loop
+
+    mov esi, src
+    mov edi, buffer
+
+    mov eax, esi
+find_end:
+    cmp byte ptr [eax], 0
+    je start_scan
+    inc eax
+    jmp find_end
+
+start_scan:
+    dec eax 
+
+scan_words:
+    cmp eax, src
+    jl done                
+
+    cmp byte ptr [eax], ' ' 
+    je skip_space
+
+    mov ebx, eax              
+find_start:
+    cmp eax, src
+    je start_found            
+    cmp byte ptr [eax-1], ' ' 
+    je start_found
+    dec eax
+    jmp find_start
+
+start_found:
+    push esi
+    mov esi, eax
+    mov ecx, ebx
+    sub ecx, eax
+    inc ecx                   
+
+copy_loop:
+    mov dl, [esi]
+    mov [edi], dl
+    inc esi
+    inc edi
+    loop copy_loop            
+
+    mov byte ptr [edi], ' '
+    inc edi
+    
+    pop esi
+    dec eax 
+    jmp scan_words
+
+skip_space:
+    dec eax 
+    jmp scan_words
+
+done:
+
+    cmp edi, buffer
+    je empty_str
+    dec edi
+empty_str:
+    mov byte ptr [edi], 0
+
+    mov esi, buffer
+    mov edi, src
+copy_back_loop:
+    mov dl, [esi]
+    mov [edi], dl
+    inc esi
+    inc edi
+    cmp dl, 0
+    jne copy_back_loop
+
+ENDM 
+
+.code
+reverseWordsWrapper PROC strPtr:DWORD, bufPtr:DWORD
+    
+    REVERSE_WORDS_MACRO strPtr, bufPtr
+    
+    ret
+reverseWordsWrapper ENDP
 
 END
